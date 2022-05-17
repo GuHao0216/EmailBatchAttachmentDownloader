@@ -11,7 +11,10 @@ EMAIL_PROTOCOL = 'POP3'
 SERVER_ADDRESS = 'pop.qq.com'
 
 # 附件保存位置
+#windows 路径
 SAVE_PATH = r'F:\Email-Attachments'
+#macOS 路径
+SAVE_PATH = r'/Users/xxx/Downloads'
 # 筛选起止时间    yyyy-MM-dd HH:mm:ss
 DATE_BEGIN, DATE_END = '2020-10-20 00:00', '2020-11-5 18:00'  # 筛选起止时间（包含此时间）
 # 时区 默认东八区北京时间，如需更改请按如下格式更改
