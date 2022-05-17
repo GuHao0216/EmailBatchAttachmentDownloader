@@ -8,6 +8,9 @@ class ImapReceiver:
     def __init__(self, host: str, email_address: str, email_password: str):
         # 连接IMAP4服务器(SSL):
         try:
+            # 添加缺失的命令ID for 163邮箱
+            imaplib.Commands['ID'] = ('AUTH')
+
             self.__connection = imaplib.IMAP4_SSL(host)
         except OSError as e:
             print('连接服务器失败，请检查服务器地址或网络连接。')
@@ -17,6 +20,10 @@ class ImapReceiver:
         # 登录:
         try:
             s = self.__connection.login(email_address, email_password)
+            # 上传客户端身份信息 for 163邮箱
+            args = ("version", "1.0.0", "vendor", "myclient")
+            typ, dat = self.__connection._simple_command('ID', '("' + '" "'.join(args) + '")')
+            print(self.__connection._untagged_response(typ, dat, 'ID'))
         except Exception as e:
             print(e.args)
             print('登陆失败，请检查用户名/密码。并确保您的邮箱已开启IMAP服务。')
